@@ -8,11 +8,19 @@
                 span.icon-bar
             a.navbar-brand(href='/')
                 i.fa.fa-cube
-                | Project name
+                | Bookstore
         .collapse.navbar-collapse
             ul.nav.navbar-nav
                 li(class=(title == 'Home') ? 'active' : undefined)
                     a(href='/') Home
+                li
+                    a.hidden-cate(href='/') Category
+                    ul
+                        li
+                            a(href="#") Cate 1
+                        li
+                            a(href="#") Cate 2
+
             ul.nav.navbar-nav.navbar-right
                 if !user
                     li(class=(title == 'Login') ? 'active' : undefined)
@@ -31,8 +39,6 @@
                         ul.dropdown-menu
                             li
                                 a(href='/account') My Account
-                            li
-                                a(href='/add-book') Add Book
                             li.divider
                             li
                                 a(href='/logout') Logout

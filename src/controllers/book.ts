@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { default as Book } from "../models/Book";
+import { BookModel, default as Book } from "../models/Book";
+import { WriteError } from "mongodb";
 
 
 /**
@@ -31,9 +32,57 @@ export let postAddBook = (req: Request, res: Response, next: NextFunction) => {
     book.save((err) => {
         if (err) { return next(err); }
         req.flash("success", "OK!");
-        return res.redirect("/book/add");
+        res.redirect("/admin");
     });
 };
+
+export let getDeleteBook = (req: Request, res: Response, next: NextFunction) => {
+    Book.remove({ _id: req.params.id }, (err) => {
+        if (err) { return next(err); }
+        req.flash("success", "OK!");
+        res.redirect("/admin");
+    });
+};
+
+export let getEditBook = (req: Request, res: Response) => {
+    Book.findById(req.params.id, function (err, book) {
+        if (err) {
+            console.log(err);
+        }
+        res.render("book/edit", {
+            title: "Edit Book",
+            book: book
+        });
+    });
+};
+
+export let postEditBook = (req: Request, res: Response, next: NextFunction) => {
+    req.assert("image", "image not empty").notEmpty();
+    req.assert("name", "name not empty").notEmpty();
+    req.assert("description", "description not empty").notEmpty();
+
+    const errors = req.validationErrors();
+
+    if (errors) {
+        req.flash("errors", errors);
+        return res.redirect("/admin");
+    }
+
+    Book.findById(req.params.id, (err, book: BookModel) => {
+        if (err) { return next(err); }
+        book.image = req.body.image;
+        book.name = req.body.name ;
+        book.description = req.body.description ;
+        book.save((err) => {
+            if (err) {
+                return next(err);
+            }
+            req.flash("success", { msg: "OK!" });
+            res.redirect("/admin");
+        });
+    });
+};
+
 
 export let getAllBook = (req: Request, res: Response) => {
     Book.find({}, function (err, books: any[]) {

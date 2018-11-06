@@ -1,0 +1,49 @@
+extends layout
+
+block content
+    h1 Account
+    hr
+    table(style='width:100%', border='1')
+        tr
+            th Id
+            th Email
+            th Created at
+            th Action
+        each user in users
+            tr
+                td #{user._id}
+                td #{user.email}
+                td #{user.createdAt}
+                td
+                    a(href="#")
+                        i.fa.fa-trash
+                            |Delete
+                    a(href="#")
+                        i.fa.fa-pencil
+                            | Edit
+    br
+    a.btn.btn-default(href="#") Add account
+    h2 Book
+    hr
+    table(style='width:100%', border='1')
+        tr
+            th image
+            th name
+            th description
+            th Action
+        each book in books
+            tr
+                td
+                    img(src=book.image, style="width: 100%")
+                td(style="width: 20%") #{book.name}
+                td(style="width: 50%")
+                    | #{book.description}
+                td
+                    a(href="/book/delete/" + book._id)
+                        i.fa.fa-trash
+                            | Delete
+                    a(href="/book/edit/" + book._id)
+                        i.fa.fa-pencil
+                            | Edit
+    br
+    a.btn.btn-default(href="/book/add") Add Book

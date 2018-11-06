@@ -68,3 +68,12 @@ textarea {
 .fa {
   margin-right: 6px;
 }
+
+.hidden-cate{
+  ul {
+    display: none;
+  }
+  &:hover ul{
+    display: inline;
+  }
+}
