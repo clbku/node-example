@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    h1 Bookstore
+    hr
+    .row
+         each book in books
+             .col-sm-6
+                 img(src=book.image style='width: 100%; height: 300px')
+                 h2 #{book.name}
+                 p #{book.description}
+                 p
+                     a.btn.btn-default(href='#', role='button') View details »
+
+

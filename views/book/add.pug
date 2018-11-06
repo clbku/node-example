@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+    h1 Add Book
+    hr
+    form.form-horizontal(method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+            label.col-sm-3.control-label(for='image') Image
+            .col-sm-7
+                input.form-control(type='text', name='image', id='image', placeholder='Image', autofocus, required)
+        .form-group
+            label.col-sm-3.control-label(for='name') Name
+            .col-sm-7
+                input.form-control(type='text', name='name', id='name', placeholder='Name', required)
+        .form-group
+            label.col-sm-3.control-label(for='description') Description
+            .col-sm-7
+                input.form-control(type='text', name='description', id='description', placeholder='Description', required)
+        .form-group
+            .col-sm-offset-3.col-sm-7
+                button.col-sm-3.btn.btn-primary(type='submit')
+                    | Add
